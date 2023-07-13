@@ -1,7 +1,11 @@
-exports.create = (req, res, next) => {};
+const News = require("../models/news");
 
-exports.read = (req, res, next) => {};
+exports.getNews = (req, res, next) => {};
 
-exports.update = (req, res, next) => {};
+exports.getNewsById = (req, res, next) => {};
 
-exports.delete = (req, res, next) => {};
+exports.createNews = (req, res, next) => {};
+
+exports.updateNews = (req, res, next) => {};
+
+exports.deleteNews = (req, res, next) => {};
