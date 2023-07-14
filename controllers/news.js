@@ -12,7 +12,27 @@ exports.getNews = (req, res, next) => {
 
 exports.getNewsById = (req, res, next) => {};
 
-exports.createNews = (req, res, next) => {};
+exports.createNews = (req, res, next) => {
+  const title = req.body.title;
+  const content = req.body.content;
+
+  const news = News({
+    title: title,
+    content: content,
+  });
+
+  news
+    .save()
+    .then(() => {
+      res.status(201).json({
+        message: "News created.",
+        news: news,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 exports.updateNews = (req, res, next) => {};
 
