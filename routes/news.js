@@ -4,7 +4,7 @@ const newsController = require("../controllers/news");
 
 router.get("/", newsController.getNews);
 router.get("/:id");
-router.post("/");
+router.post("/", newsController.createNews);
 router.put("/:id");
 router.delete("/:id");
 
