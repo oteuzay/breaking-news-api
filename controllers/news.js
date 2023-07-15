@@ -65,4 +65,28 @@ exports.createNews = (req, res, next) => {
 
 exports.updateNews = (req, res, next) => {};
 
-exports.deleteNews = (req, res, next) => {};
+exports.deleteNews = (req, res, next) => {
+  const id = req.params.id;
+
+  News.findById(id)
+    .then((news) => {
+      if (!news) {
+        const error = new Error("Could not find news.");
+        error.statusCode = 404;
+        throw error;
+      }
+
+      return News.findByIdAndRemove(id);
+    })
+    .then(() => {
+      res.status(200).json({
+        message: "Deleted news.",
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
