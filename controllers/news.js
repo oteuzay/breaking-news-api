@@ -7,7 +7,12 @@ exports.getNews = (req, res, next) => {
         news: news,
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };
 
 exports.getNewsById = (req, res, next) => {
@@ -15,12 +20,21 @@ exports.getNewsById = (req, res, next) => {
 
   News.findById(id)
     .then((news) => {
+      if (!news) {
+        const error = new Error("Could not find news.");
+        error.statusCode = 404;
+        throw error;
+      }
+
       res.status(200).json({
         news: news,
       });
     })
     .catch((err) => {
-      console.log(err);
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
     });
 };
 
@@ -42,7 +56,10 @@ exports.createNews = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
     });
 };
 
