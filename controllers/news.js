@@ -63,7 +63,38 @@ exports.createNews = (req, res, next) => {
     });
 };
 
-exports.updateNews = (req, res, next) => {};
+exports.updateNews = (req, res, next) => {
+  const id = req.params.id;
+
+  const title = req.body.title;
+  const content = req.body.content;
+
+  News.findById(id)
+    .then((news) => {
+      if (!news) {
+        const error = new Error("Could not find news.");
+        error.statusCode = 404;
+        throw error;
+      }
+
+      news.title = title;
+      news.content = content;
+
+      return news.save();
+    })
+    .then((result) => {
+      res.status(200).json({
+        message: "News updated",
+        news: result,
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
 
 exports.deleteNews = (req, res, next) => {
   const id = req.params.id;
