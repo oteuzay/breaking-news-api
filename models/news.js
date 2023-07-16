@@ -10,6 +10,11 @@ const newsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    editor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: true,
