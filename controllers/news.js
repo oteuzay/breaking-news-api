@@ -1,4 +1,5 @@
 const News = require("../models/news");
+const User = require("../models/user");
 
 exports.getNews = async (req, res, next) => {
   const currentPage = req.query.page || 1;
@@ -56,6 +57,11 @@ exports.createNews = async (req, res, next) => {
 
   try {
     await news.save();
+
+    const user = await User.findById(req.userId);
+    user.news.push(news);
+
+    await user.save();
 
     res.status(201).json({
       message: "News created.",
