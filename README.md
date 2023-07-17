@@ -1,34 +1,59 @@
 # Breaking News API
 
-This API helps you to serve your breaking news in a simple way.
+This API helps you to serve your breaking news in a simple way. Designed to manage your news flow and easily deliver up-to-date and important information to your users, this powerful tool is built to assist you.
 
 ## Table of Contents
 
 - [Installation](#Installation)
 - [Usage](#Usage)
+- [Issues](#Issues)
 
 ### Installation
 
-First, let's download the project.
+You can complete the installation by following the steps below.
 
 ```sh
 git clone https://github.com/oteuzay/breaking-news-api.git
 ```
 
-Let's enter the folder that you have downloaded.
-
 ```sh
 cd breaking-news-api
 ```
 
-You can use any package management tool like npm, yarn, or pnpm. If we take pnpm as an example of usage;
+You can use any package management tool like npm, yarn, or pnpm.
+
+If we take pnpm as an example of usage;
 
 ```sh
 pnpm install
 ```
 
-Congratulations, the installation is complete.
-
 ### Usage
 
-⏳
+After completing the installation, you need to create a .env file.
+
+```sh
+touch .env
+```
+
+Fill in the .env file based on the following example.
+
+```sh
+PORT=
+DB_URL=
+JWT_SECRET=
+```
+
+Finally, start your server as the last step.
+
+```sh
+pnpm dev
+```
+
+### Issues
+
+If you encounter any problems, have questions, or want to provide feedback, please don't hesitate to create an issue in our repository. Clearly describe the issue you're facing, providing as much relevant information as possible, such as steps to reproduce the problem. This will help us understand and address the issue more effectively.
+
+Feel free to browse through the existing issues as well, as someone might have already reported a similar problem or suggested a solution. We appreciate your engagement and will do our best to respond to the issues in a timely manner. Your input is invaluable in improving the quality and usability of our project.
+
+Thank you for your contribution!
