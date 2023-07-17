@@ -121,6 +121,10 @@ exports.deleteNews = async (req, res, next) => {
 
     await News.findByIdAndRemove(id);
 
+    const user = await User.findById(req.userId);
+    user.news.pull(id);
+    await user.save();
+
     res.status(200).json({
       message: "Deleted news.",
     });
