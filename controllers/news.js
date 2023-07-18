@@ -53,6 +53,7 @@ exports.createNews = async (req, res, next) => {
   const news = News({
     title: title,
     content: content,
+    editor: req.userId,
   });
 
   try {
