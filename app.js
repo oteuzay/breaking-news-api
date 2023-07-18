@@ -1,6 +1,8 @@
 const express = require("express");
 const compression = require("compression");
 
+const logger = require("./utils/logger");
+
 const app = express();
 
 const newsRoutes = require("./routes/news");
@@ -19,6 +21,8 @@ app.use((error, req, res, next) => {
     message: error.message,
     data: error.data,
   });
+
+  logger.error(`${status} - ${error.message}`);
 });
 
 module.exports = app;
