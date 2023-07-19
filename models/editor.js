@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const editorSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -18,4 +18,4 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Editor", editorSchema);
