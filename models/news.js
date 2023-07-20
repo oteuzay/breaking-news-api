@@ -10,9 +10,9 @@ const newsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    user: {
+    editorID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Editor",
       required: true,
     },
   },
