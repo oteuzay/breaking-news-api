@@ -1,6 +1,8 @@
 const News = require("../models/news");
 const Editor = require("../models/editor");
 
+const convertDateFormat = require("../helpers/convert-date-format");
+
 exports.createNews = async (req, res, next) => {
   try {
     const editorID = req.userId;
@@ -53,7 +55,7 @@ exports.getNews = async (req, res, next) => {
         id: item.id,
         title: item.title,
         content: item.content,
-        createdAt: item.createdAt,
+        createdAt: convertDateFormat(item.createdAt),
       };
     });
 
@@ -87,7 +89,7 @@ exports.getNewsById = async (req, res, next) => {
         id: news.id,
         title: news.title,
         content: news.content,
-        createdAt: news.createdAt,
+        createdAt: convertDateFormat(news.createdAt),
         editor: {
           id: editor._id,
           name: editor.name,
