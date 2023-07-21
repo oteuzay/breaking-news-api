@@ -11,7 +11,7 @@ const authRoutes = require("./routes/auth");
 app.use(express.json());
 app.use(compression());
 
-app.use("/", newsRoutes);
+app.use("/news", newsRoutes);
 app.use("/auth", authRoutes);
 
 app.use((error, req, res, next) => {
@@ -22,7 +22,7 @@ app.use((error, req, res, next) => {
     data: error.data,
   });
 
-  logger.error(`${status} - ${error.message}`);
+  logger.error(status + error.message + error.data);
 });
 
 module.exports = app;
