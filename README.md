@@ -20,12 +20,8 @@ git clone https://github.com/oteuzay/breaking-news-api.git
 cd breaking-news-api
 ```
 
-You can use any package management tool like npm, yarn, or pnpm.
-
-If we take pnpm as an example of usage;
-
 ```sh
-pnpm install
+npm install
 ```
 
 ### Usage
@@ -47,7 +43,7 @@ JWT_SECRET=
 Finally, start your server as the last step.
 
 ```sh
-pnpm dev
+npm run dev
 ```
 
 ### Issues
