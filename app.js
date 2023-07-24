@@ -1,7 +1,7 @@
 const express = require("express");
 const compression = require("compression");
 
-const logger = require("./utils/logger");
+const errorHandler = require("./middleware/error-handler");
 
 const app = express();
 
@@ -14,15 +14,6 @@ app.use(compression());
 app.use("/news", newsRoutes);
 app.use("/auth", authRoutes);
 
-app.use((error, req, res, next) => {
-  const status = error.statusCode || 500;
-
-  res.status(status).json({
-    message: error.message,
-    data: error.data,
-  });
-
-  logger.error(status + error.message + error.data);
-});
+app.use(errorHandler);
 
 module.exports = app;
