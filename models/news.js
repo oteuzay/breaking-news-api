@@ -6,9 +6,17 @@ const newsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
     content: {
       type: String,
       required: true,
+    },
+    tags: {
+      type: [String],
+      default: ["General"],
     },
     editorID: {
       type: mongoose.Schema.Types.ObjectId,
