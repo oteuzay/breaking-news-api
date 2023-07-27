@@ -17,6 +17,7 @@ const newsSchema = new mongoose.Schema(
     tags: {
       type: [String],
       default: ["General"],
+      required: true,
     },
     editorID: {
       type: mongoose.Schema.Types.ObjectId,
