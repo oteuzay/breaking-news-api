@@ -1,10 +1,11 @@
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const Editor = require("../models/editor");
 
 require("dotenv").config();
 
+/* The `signin` function is responsible for handling the logic of signing in a user. */
 exports.signin = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -12,51 +13,47 @@ exports.signin = async (req, res, next) => {
     const editor = await Editor.findOne({ email: email });
 
     if (!editor) {
-      const error = new Error("Email could not be found.");
-      error.statusCode = 401;
-      throw error;
+      throw new CustomError("Email could not be found.", 404);
     }
 
     const isEqual = await bcrypt.compare(password, editor.password);
 
     if (!isEqual) {
-      const error = new Error("Wrong password!");
-      error.statusCode = 401;
-      throw error;
+      throw new CustomError("Password is wrong.", 401);
     }
 
     const token = jwt.sign(
       {
+        editorID: editor._id.toString(),
         email: editor.email,
-        userId: editor._id.toString(),
       },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      {
+        expiresIn: "1h",
+      }
     );
 
     res.status(200).json({
-      email: editor.email,
+      editor: {
+        editorID: editor._id.toString(),
+        email: editor.email,
+      },
       token: token,
     });
   } catch (err) {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-
     next(err);
   }
 };
 
+/* The `signup` function is responsible for handling the logic of signing up a new user. */
 exports.signup = async (req, res, next) => {
   const { name, surname, email, password } = req.body;
 
   try {
-    const findEditor = await Editor.findOne({ email: email });
+    const editor = await Editor.findOne({ email: email });
 
-    if (findEditor) {
-      const error = new Error("E-Mail address already exists!");
-      error.statusCode = 422;
-      throw error;
+    if (editor) {
+      throw new CustomError("E-Mail address already exists!", 422);
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -77,10 +74,6 @@ exports.signup = async (req, res, next) => {
       },
     });
   } catch (err) {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-
     next(err);
   }
 };
