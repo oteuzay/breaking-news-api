@@ -4,6 +4,8 @@ const CustomError = require("../utils/errors");
 
 require("dotenv").config();
 
+/* The code is exporting a middleware function that is used for 
+authentication in a Node.js application. */
 module.exports = (req, res, next) => {
   const authHeader = req.get("Authorization");
 
@@ -11,11 +13,10 @@ module.exports = (req, res, next) => {
     throw new CustomError("Not authenticated.", 401);
   }
 
-  const token = authHeader.split(" ")[1];
   let decodedToken;
 
   try {
-    decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    decodedToken = jwt.verify(authHeader.split(" ")[1], process.env.JWT_SECRET);
   } catch (err) {
     err.statusCode = 500;
     throw err;
@@ -25,6 +26,7 @@ module.exports = (req, res, next) => {
     throw new CustomError("Not authenticated.", 401);
   }
 
-  req.userId = decodedToken.userId;
+  req.editorID = decodedToken.editorID;
+
   next();
 };
