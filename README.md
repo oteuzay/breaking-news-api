@@ -1,6 +1,6 @@
 # Breaking News API
 
-<img src="/docs/assets/cover.png" style="width: 40%" />
+<img src="/docs/assets/cover.png" style="width: 25%" />
 
 The Breaking News API simplifies the process of delivering up-to-date and critical news to your users effortlessly.
 
