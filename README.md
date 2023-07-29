@@ -1,55 +1,67 @@
 # Breaking News API
 
-This API helps you to serve your breaking news in a simple way. Designed to manage your news flow and easily deliver up-to-date and important information to your users, this powerful tool is built to assist you.
+<img src="/docs/assets/cover.png" style="width: 40%" />
 
-## Table of Contents
+The Breaking News API simplifies the process of delivering up-to-date and critical news to your users effortlessly.
 
-- [Installation](#Installation)
-- [Usage](#Usage)
-- [Issues](#Issues)
+## Installation
 
-### Installation
+Let's get started with the installation process:
 
-You can complete the installation by following the steps below.
+1. Clone the project by running the following command:
 
 ```sh
 git clone https://github.com/oteuzay/breaking-news-api.git
 ```
 
+2. Navigate to the project folder and create a `.env` file:
+
 ```sh
-cd breaking-news-api
+cd breaking-news-api && touch .env
 ```
+
+3. Open the `.env` file and provide the required parameters:
+
+```sh
+PORT=      # Specify the port on which the server will run
+DB_URL=    # Provide the URL for your database connection
+JWT_SECRET=    # Set a secure secret for JSON Web Token (JWT) encryption
+```
+
+4. Once you've filled in the necessary environment variables, you can choose one of the following methods to start the server:
+
+- Using `Docker Compose`:
+
+```sh
+docker-compose up
+```
+
+- Using `npm`:
 
 ```sh
 npm install
 ```
 
-### Usage
-
-After completing the installation, you need to create a .env file.
-
 ```sh
-touch .env
-```
-
-Fill in the .env file based on the following example.
-
-```sh
-PORT=
-DB_URL=
-JWT_SECRET=
-```
-
-Finally, start your server as the last step.
-
-```sh
-npm run dev
+npm run start
 ```
 
 ### Issues
 
-If you encounter any problems, have questions, or want to provide feedback, please don't hesitate to create an issue in our repository. Clearly describe the issue you're facing, providing as much relevant information as possible, such as steps to reproduce the problem. This will help us understand and address the issue more effectively.
+If you encounter any problems, have questions, or wish to share feedback, please don't hesitate to create an issue in our repository. Your input is valuable, and we will respond promptly to assist you.
 
-Feel free to browse through the existing issues as well, as someone might have already reported a similar problem or suggested a solution. We appreciate your engagement and will do our best to respond to the issues in a timely manner. Your input is invaluable in improving the quality and usability of our project.
+### Contributions & Pull Requests
 
-Thank you for your contribution!
+If you have improvements or new features to add, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch with a descriptive name for your changes.
+3. Make your modifications and commit them with clear and concise messages.
+4. Push your changes to your forked repository.
+5. Submit a pull request to our main repository, detailing the changes you've made.
+
+### License
+
+This Breaking News API project is licensed under the [MIT License](https://github.com/oteuzay/breaking-news-api/blob/main/LICENSE). Please review the license file for more details.
+
+Thank you for your interest and valuable contributions!
