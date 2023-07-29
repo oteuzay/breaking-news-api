@@ -7,12 +7,15 @@ const app = express();
 
 const newsRoutes = require("./routes/news");
 const authRoutes = require("./routes/auth");
+const editorRoutes = require("./routes/editor");
 
 app.use(express.json());
 app.use(compression());
 
-app.use("/news", newsRoutes);
 app.use("/auth", authRoutes);
+
+app.use("/news", newsRoutes);
+app.use("/editor", editorRoutes);
 
 app.use(errorHandler);
 
