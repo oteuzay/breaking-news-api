@@ -21,9 +21,9 @@ const newsSchema = new mongoose.Schema(
       default: ["General"],
       required: true,
     },
-    editorID: {
+    authorID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Editor",
+      ref: "Author",
       required: true,
     },
   },
@@ -32,10 +32,7 @@ const newsSchema = new mongoose.Schema(
   }
 );
 
-/* The `newsSchema.methods.toJSONForNews` function is a method that is added to the `newsSchema`
-object. This method is used to convert a news document from the MongoDB database into a JSON object
-with specific properties. */
-newsSchema.methods.toJSONForNews = function () {
+newsSchema.methods.toJSON = function () {
   return {
     id: this._id,
     title: this.title,
@@ -44,28 +41,24 @@ newsSchema.methods.toJSONForNews = function () {
     tags: this.tags,
     createdAt: convertDateFormat(this.createdAt),
     updatedAt: convertDateFormat(this.updatedAt),
-    editor: {
-      id: this.editorID._id,
-      name: this.editorID.name,
-      surname: this.editorID.surname,
+    author: {
+      id: this.authorID._id,
+      name: this.authorID.name,
+      surname: this.authorID.surname,
     },
   };
 };
 
-/* The `newsSchema.methods.toJSONForPreviewOfNews` function is a method that is added to the
-`newsSchema` object. This method is used to convert a news document from the MongoDB database into a
-JSON object with specific properties, but with a simplified structure compared to the
-`toJSONForNews` method. */
-newsSchema.methods.toJSONForPreviewOfNews = function () {
+newsSchema.methods.toJSONForSummaryOfNews = function () {
   return {
     id: this._id,
     title: this.title,
     description: this.description,
     createdAt: convertDateFormat(this.createdAt),
-    editor: {
-      id: this.editorID._id,
-      name: this.editorID.name,
-      surname: this.editorID.surname,
+    author: {
+      id: this.authorID._id,
+      name: this.authorID.name,
+      surname: this.authorID.surname,
     },
   };
 };
