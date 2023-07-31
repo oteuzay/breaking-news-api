@@ -6,37 +6,23 @@ The Breaking News API simplifies the process of delivering up-to-date and critic
 
 ## Installation
 
-Let's get started with the installation process:
-
-1. Clone the project by running the following command:
+Step 1.
 
 ```sh
 git clone https://github.com/oteuzay/breaking-news-api.git
 ```
 
-2. Navigate to the project folder and create a `.env` file:
-
 ```sh
-cd breaking-news-api && touch .env
+cd breaking-news-api
 ```
 
-3. Open the `.env` file and provide the required parameters:
+Step 2.
 
 ```sh
-PORT=      # Specify the port on which the server will run
-DB_URL=    # Provide the URL for your database connection
-JWT_SECRET=    # Set a secure secret for JSON Web Token (JWT) encryption
+cp .env.example .env
 ```
 
-4. Once you've filled in the necessary environment variables, you can choose one of the following methods to start the server:
-
-- Using `Docker Compose`:
-
-```sh
-docker-compose up
-```
-
-- Using `npm`:
+Step 3.
 
 ```sh
 npm install
