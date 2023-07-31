@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
   const authHeader = req.get("Authorization");
 
   if (!authHeader) {
-    throw new CustomError("Not authenticated.", 401);
+    throw new CustomError("401 Unauthorized", 401);
   }
 
   let decodedToken;
@@ -23,10 +23,10 @@ module.exports = (req, res, next) => {
   }
 
   if (!decodedToken) {
-    throw new CustomError("Not authenticated.", 401);
+    throw new CustomError("401 Unauthorized", 401);
   }
 
-  req.editorID = decodedToken.editorID;
+  req.authorID = decodedToken.authorID;
 
   next();
 };
