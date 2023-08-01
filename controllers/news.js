@@ -1,5 +1,5 @@
 const News = require("../models/news");
-const Editor = require("../models/editor");
+const Author = require("../models/author");
 
 const CustomError = require("../utils/errors");
 
@@ -11,16 +11,16 @@ exports.createNews = async (req, res, next) => {
       description: req.body.description,
       content: req.body.content,
       tags: req.body.tags,
-      editorID: req.editorID,
+      authorID: req.authorID,
     }).save();
 
-    await Editor.findByIdAndUpdate(req.editorID, {
+    await Author.findByIdAndUpdate(req.authorID, {
       $push: { news },
     });
 
     res.status(201).json({
       message: "News successfully created.",
-      news: news.toJSONForNews(),
+      news: news,
     });
   } catch (err) {
     next(err);
@@ -36,13 +36,13 @@ exports.getNews = async (req, res, next) => {
     const countNews = await News.find().countDocuments();
 
     const news = await News.find()
-      .populate("editorID")
+      .populate("authorID")
       .sort({ createdAt: -1 })
       .skip((currentPage - 1) * perPage)
       .limit(perPage);
 
     res.status(200).json({
-      news: news.map((news) => news.toJSONForPreviewOfNews()),
+      news: news.map((news) => news.toJSONForSummaryOfNews()),
       pagination: {
         currentPage: currentPage,
         lastPage: Math.ceil(countNews / perPage),
@@ -55,34 +55,28 @@ exports.getNews = async (req, res, next) => {
 };
 
 /* The `getNewsById` function is responsible for retrieving a specific news item by its ID. It uses the
-`News.findById` method to find the news item with the specified ID. It also populates the `editorID`
-field of the news item with the corresponding editor object. If the news item is not found, it
-throws a custom error with a status code of 404. If the news item is found, it returns the news item
-as JSON in the response. */
+`News` model to find the news item with the specified ID and populates the `authorID` field with the
+corresponding author information. If the news item is found, it is returned in the response with a
+status code of 200. If the news item is not found, a custom error is thrown with a status code of
+404. If any other error occurs, it is passed to the error handling middleware through the `next`
+function. */
 exports.getNewsById = async (req, res, next) => {
   try {
-    const news = await News.findById(req.params.id).populate("editorID");
+    const news = await News.findById(req.params.id).populate("authorID");
 
     if (!news) {
       throw new CustomError("News could not be found.", 404);
     }
 
     res.status(200).json({
-      news: news.toJSONForNews(),
+      news: news,
     });
   } catch (err) {
     next(err);
   }
 };
 
-/* The `updateNews` function is responsible for updating a specific news item. It first retrieves the
-news item with the specified ID using `News.findById`. If the news item is not found, it throws a
-custom error with a status code of 404. If the news item is found, it checks whether the requesting
-editor is authorized to update the news. If the editor is not authorized, it throws a custom error
-with a status code of 403 (Forbidden). If the editor is authorized, the function updates the news
-item's title, description, content, and tags based on the data received in the request body. After
-successfully updating the news item, it returns a success message along with the updated news item
-as JSON in the response. */
+/* The `updateNews` function is responsible for updating a news item. */
 exports.updateNews = async (req, res, next) => {
   try {
     const news = await News.findById(req.params.id);
@@ -91,7 +85,7 @@ exports.updateNews = async (req, res, next) => {
       throw new CustomError("News could not be found.", 404);
     }
 
-    if (news.editorID.toString() !== req.editorID) {
+    if (news.authorID.toString() !== req.authorID) {
       throw new CustomError("Not authorized.", 403);
     }
 
@@ -104,7 +98,7 @@ exports.updateNews = async (req, res, next) => {
 
     res.status(200).json({
       message: "News successfully updated.",
-      news: updatedNews.toJSONForNews(),
+      news: updatedNews,
     });
   } catch (err) {
     next(err);
@@ -122,13 +116,13 @@ exports.deleteNews = async (req, res, next) => {
       throw new CustomError("News could not be found.", 404);
     }
 
-    if (news.editorID.toString() !== req.editorID) {
+    if (news.authorID.toString() !== req.authorID) {
       throw new CustomError("Not authorized.", 403);
     }
 
     await News.findByIdAndRemove(id);
 
-    await Editor.findByIdAndUpdate(news.editorID, {
+    await Author.findByIdAndUpdate(news.authorID, {
       $pull: { news: id },
     });
 
