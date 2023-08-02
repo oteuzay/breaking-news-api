@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-const Editor = require("../models/editor");
+const Author = require("../models/author");
+
+const CustomError = require("../utils/errors");
 
 require("dotenv").config();
 
@@ -10,13 +12,13 @@ exports.signin = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    const editor = await Editor.findOne({ email: email });
+    const author = await Author.findOne({ email: email });
 
-    if (!editor) {
+    if (!author) {
       throw new CustomError("Email could not be found.", 404);
     }
 
-    const isEqual = await bcrypt.compare(password, editor.password);
+    const isEqual = await bcrypt.compare(password, author.password);
 
     if (!isEqual) {
       throw new CustomError("Password is wrong.", 401);
@@ -24,8 +26,8 @@ exports.signin = async (req, res, next) => {
 
     const token = jwt.sign(
       {
-        editorID: editor._id.toString(),
-        email: editor.email,
+        authorID: author._id.toString(),
+        email: author.email,
       },
       process.env.JWT_SECRET,
       {
@@ -34,9 +36,9 @@ exports.signin = async (req, res, next) => {
     );
 
     res.status(200).json({
-      editor: {
-        editorID: editor._id.toString(),
-        email: editor.email,
+      author: {
+        authorID: author._id.toString(),
+        email: author.email,
       },
       token: token,
     });
@@ -50,15 +52,15 @@ exports.signup = async (req, res, next) => {
   const { name, surname, email, password } = req.body;
 
   try {
-    const editor = await Editor.findOne({ email: email });
+    const author = await Author.findOne({ email: email });
 
-    if (editor) {
+    if (author) {
       throw new CustomError("E-Mail address already exists!", 422);
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    await new Editor({
+    await new Author({
       name: name,
       surname: surname,
       email: email,
@@ -66,8 +68,8 @@ exports.signup = async (req, res, next) => {
     }).save();
 
     res.status(201).json({
-      message: "Editor successfully created.",
-      editor: {
+      message: "Author successfully created.",
+      author: {
         name: name,
         surname: surname,
         email: email,
