@@ -14,6 +14,20 @@ const options = {
       version: package.version,
       description: package.description,
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   apis: ["./routes/*.js"],
 };
