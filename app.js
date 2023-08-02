@@ -11,9 +11,12 @@ const swaggerSpec = require("./docs/swagger");
 
 const app = express();
 
+/*
+ * Routes
+ */
 const newsRoutes = require("./routes/news");
 const authRoutes = require("./routes/auth");
-const editorRoutes = require("./routes/editor");
+const authorRoutes = require("./routes/author");
 
 app.use(
   cors({
@@ -33,7 +36,7 @@ if (process.env.NODE_ENV == "Development") {
 app.use("/auth", authRoutes);
 
 app.use("/news", newsRoutes);
-app.use("/editors", editorRoutes);
+app.use("/authors", authorRoutes);
 
 app.use(errors);
 
