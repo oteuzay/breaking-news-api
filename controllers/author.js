@@ -1,13 +1,13 @@
 const Author = require("../models/author");
 
-const CustomError = require("../utils/errors");
+const { throwError } = require("../utils/errors");
 
 exports.getAuthors = async (req, res, next) => {
   try {
     const authors = await Author.find();
 
     if (!authors) {
-      throw new CustomError("Author could not be found.", 404);
+      throwError("AUTHOR_NOT_FOUND");
     }
 
     res.status(200).json({
@@ -23,7 +23,7 @@ exports.getAuthor = async (req, res, next) => {
     const author = await Author.findById(req.params.id).populate("news");
 
     if (!author) {
-      throw new CustomError("Author could not be found.", 404);
+      throwError("AUTHOR_NOT_FOUND");
     }
 
     res.status(200).json({
