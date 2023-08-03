@@ -1,7 +1,7 @@
 const News = require("../models/news");
 const Author = require("../models/author");
 
-const CustomError = require("../utils/errors");
+const { throwError } = require("../utils/errors");
 
 /* The `createNews` function is responsible for creating a new news. */
 exports.createNews = async (req, res, next) => {
@@ -29,7 +29,7 @@ exports.createNews = async (req, res, next) => {
 
 /* The `getNews` function is responsible for retrieving a list of news. */
 exports.getNews = async (req, res, next) => {
-  const currentPage = req.query.page || 1;
+  const currentPage = parseInt(req.query.page || 1);
   const perPage = 10;
 
   try {
@@ -65,7 +65,7 @@ exports.getNewsById = async (req, res, next) => {
     const news = await News.findById(req.params.id).populate("authorID");
 
     if (!news) {
-      throw new CustomError("News could not be found.", 404);
+      throwError("NEWS_NOT_FOUND");
     }
 
     res.status(200).json({
@@ -82,11 +82,11 @@ exports.updateNews = async (req, res, next) => {
     const news = await News.findById(req.params.id);
 
     if (!news) {
-      throw new CustomError("News could not be found.", 404);
+      throwError("NEWS_NOT_FOUND");
     }
 
     if (news.authorID.toString() !== req.authorID) {
-      throw new CustomError("Not authorized.", 403);
+      throwError("NOT_AUTHORIZED");
     }
 
     news.title = req.body.title;
@@ -113,11 +113,11 @@ exports.deleteNews = async (req, res, next) => {
     const news = await News.findById(id);
 
     if (!news) {
-      throw new CustomError("News could not be found.", 404);
+      throwError("NEWS_NOT_FOUND");
     }
 
     if (news.authorID.toString() !== req.authorID) {
-      throw new CustomError("Not authorized.", 403);
+      throwError("NOT_AUTHORIZED");
     }
 
     await News.findByIdAndRemove(id);
