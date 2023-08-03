@@ -10,6 +10,7 @@ exports.signup = [
     .withMessage("Surname field should not be empty."),
   body("email")
     .trim()
+    .notEmpty()
     .isEmail()
     .withMessage("Please enter a valid email.")
     .normalizeEmail(),
@@ -23,6 +24,8 @@ exports.signup = [
 exports.signin = [
   body("email")
     .trim()
+    .notEmpty()
+    .withMessage("E-Mail field should not be empty.")
     .isEmail()
     .withMessage("Please enter a valid email.")
     .normalizeEmail(),
