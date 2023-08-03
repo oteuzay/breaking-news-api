@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 
-const CustomError = require("../utils/errors");
+const { throwError } = require("../utils/errors");
 
-require("dotenv").config();
+const config = require("../config/config");
 
 /* The code is exporting a middleware function that is used for 
 authentication in a Node.js application. */
@@ -10,20 +10,20 @@ module.exports = (req, res, next) => {
   const authHeader = req.get("Authorization");
 
   if (!authHeader) {
-    throw new CustomError("401 Unauthorized", 401);
+    throwError("UNAUTHORIZED");
   }
 
   let decodedToken;
 
   try {
-    decodedToken = jwt.verify(authHeader.split(" ")[1], process.env.JWT_SECRET);
+    decodedToken = jwt.verify(authHeader.split(" ")[1], config.SECRET);
   } catch (err) {
     err.statusCode = 500;
     throw err;
   }
 
   if (!decodedToken) {
-    throw new CustomError("401 Unauthorized", 401);
+    throwError("UNAUTHORIZED");
   }
 
   req.authorID = decodedToken.authorID;
