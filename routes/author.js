@@ -13,7 +13,7 @@ const authorValidator = require("../validators/author");
  * @swagger
  * /authors:
  *   get:
- *     description: Fetches all authors from the database.
+ *     summary: Fetches all authors
  *     tags: [Author]
  *     responses:
  *       200:
@@ -27,7 +27,7 @@ router.get("/", authorController.getAuthors);
  * @swagger
  * /authors/{id}:
  *   get:
- *     description: Fetches a single author by their ID along with their news.
+ *     summary: Fetches a single author by their ID along with their news.
  *     tags: [Author]
  *     parameters:
  *       - in: path
