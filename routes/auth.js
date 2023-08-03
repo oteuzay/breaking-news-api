@@ -14,6 +14,7 @@ const router = express.Router();
  * @swagger
  * /auth/signin:
  *   post:
+ *     summary: Sign in
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -48,6 +49,7 @@ router.post("/signin", authValidator.signin, authController.signin);
  * @swagger
  * /auth/signup:
  *   post:
+ *     summary: Sign up
  *     tags: [Auth]
  *     requestBody:
  *       required: true
