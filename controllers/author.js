@@ -7,7 +7,7 @@ exports.getAuthors = async (req, res, next) => {
     const authors = await Author.find();
 
     if (!authors) {
-      throw new CustomError("Not Found", 404);
+      throw new CustomError("Author could not be found.", 404);
     }
 
     res.status(200).json({
