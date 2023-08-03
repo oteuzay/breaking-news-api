@@ -1,11 +1,11 @@
-const jwt = require("jsonwebtoken");
+const jsonwebtoken = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const Author = require("../models/author");
 
-const CustomError = require("../utils/errors");
+const { throwError } = require("../utils/errors");
 
-require("dotenv").config();
+const config = require("../config/config");
 
 /* The `signin` function is responsible for handling the logic of signing in a user. */
 exports.signin = async (req, res, next) => {
@@ -15,21 +15,21 @@ exports.signin = async (req, res, next) => {
     const author = await Author.findOne({ email: email });
 
     if (!author) {
-      throw new CustomError("Email could not be found.", 404);
+      throwError("EMAIL_NOT_FOUND");
     }
 
     const isEqual = await bcrypt.compare(password, author.password);
 
     if (!isEqual) {
-      throw new CustomError("Password is wrong.", 401);
+      throwError("PASSWORD_OR_EMAIL_WRONG");
     }
 
-    const token = jwt.sign(
+    const token = jsonwebtoken.sign(
       {
         authorID: author._id.toString(),
         email: author.email,
       },
-      process.env.JWT_SECRET,
+      config.SECRET,
       {
         expiresIn: "1h",
       }
@@ -55,7 +55,7 @@ exports.signup = async (req, res, next) => {
     const author = await Author.findOne({ email: email });
 
     if (author) {
-      throw new CustomError("E-Mail address already exists!", 422);
+      throwError("EMAIL_ALREADY_EXISTS");
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
