@@ -7,7 +7,9 @@ const compression = require("compression");
 const errors = require("./middleware/error-handler");
 
 const swaggerUI = require("swagger-ui-express");
-const swaggerSpec = require("./docs/swagger");
+const swaggerSpec = require("./config/swagger");
+
+const config = require("./config/config");
 
 const app = express();
 
@@ -20,7 +22,7 @@ const authorRoutes = require("./routes/author");
 
 app.use(
   cors({
-    origin: process.env.ALLOWED_ORIGIN,
+    origin: config.ALLOWED_ORIGIN,
   })
 );
 
@@ -29,7 +31,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(compression());
 
-if (process.env.NODE_ENV == "Development") {
+if (config.NODE_ENV == "Development") {
   app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 }
 
