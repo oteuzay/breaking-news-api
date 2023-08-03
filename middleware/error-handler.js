@@ -1,18 +1,20 @@
 const logger = require("../utils/logger");
 
 const errorHandler = (error, req, res, next) => {
-  const status = error.statusCode || 500;
+  const errorStatus = error.statusCode || 500;
+  const errorMessage = error.message || "Internal Server Error";
+  const errorData = error.data || {};
 
-  res.status(status).json({
-    message: error.message,
-    data: error.data || {},
+  res.status(errorStatus).json({
+    message: errorMessage,
+    data: errorData,
   });
 
-  if (error.data === undefined) {
-    logger.error(status + ": " + error.message);
+  if (errorData === undefined) {
+    logger.error(errorStatus + ": " + errorMessage);
   } else {
     logger.error(
-      status + ": " + error.message + " " + JSON.stringify(error.data)
+      errorStatus + ": " + errorMessage + " " + JSON.stringify(errorData)
     );
   }
 };
