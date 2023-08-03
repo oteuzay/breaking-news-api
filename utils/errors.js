@@ -13,6 +13,30 @@ const errorMessages = {
     message: "Author could not be found.",
     status: 404,
   },
+  EMAIL_NOT_FOUND: {
+    message: "Email could not be found.",
+    status: 404,
+  },
+  EMAIL_ALREADY_EXISTS: {
+    message: "E-Mail address already exists!",
+    status: 422,
+  },
+  PASSWORD_OR_EMAIL_WRONG: {
+    message: "Password or email is incorrect.",
+    status: 401,
+  },
+  NEWS_NOT_FOUND: {
+    message: "News could not be found.",
+    status: 404,
+  },
+  NOT_AUTHORIZED: {
+    message: "Not authorized",
+    status: 403,
+  },
+  UNAUTHORIZED: {
+    message: "Unauthorized",
+    status: 401,
+  },
 };
 
 /**
