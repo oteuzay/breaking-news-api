@@ -1,20 +1,18 @@
 const app = require("./app");
 const mongoose = require("mongoose");
 
-require("dotenv").config();
+const config = require("./config/config");
 
 const logger = require("./utils/logger");
 
-const port = process.env.PORT || 8080;
-
 mongoose
-  .connect(process.env.DB_URL, {
+  .connect(config.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(port, () => {
-      logger.info(`Server is running on port ${port}.`);
+    app.listen(config.PORT, () => {
+      logger.info(`Server is running on port ${config.PORT}.`);
     });
   })
   .catch((error) => {
