@@ -1,53 +1,73 @@
-# Breaking News API
+# Breaking News API [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/oteuzay/breaking-news-api/blob/main/LICENSE)
 
-<img src="/docs/assets/cover.png" style="width: 25%" />
-
-The Breaking News API simplifies the process of delivering up-to-date and critical news to your users effortlessly.
+The Breaking News API is a monolithic API that simplifies the process of delivering up-to-date and critical news to your users effortlessly.
 
 ## Installation
 
-Step 1.
+You can get the project up and running by following the steps below.
+
+#### 1. Clone
+
+Start by cloning this project.
 
 ```sh
-git clone https://github.com/oteuzay/breaking-news-api.git
+  git clone https://github.com/oteuzay/breaking-news-api.git
 ```
 
 ```sh
-cd breaking-news-api
+  cd breaking-news-api
 ```
 
-Step 2.
+#### 2. Environment Variables
+
+Now, it's time to set up the environment variables.
+
+Create a new file named .env from the .env.example file.
 
 ```sh
-cp .env.example .env
+  cp .env.example .env
 ```
 
-Step 3.
+Please make sure to customize the environment variables in the .env file according to your specific needs.
 
-```sh
-npm install
+#### 3.1 with NPM
+
+For running the application with NPM, run the following commands:
+
+```bash
+  npm install
 ```
 
-```sh
-npm run start
+```bash
+  npm run start
 ```
+
+#### 3.2 with Docker
+
+If you prefer using Docker to run the project, you can use the following commands:
+
+```bash
+  docker build -t breaking-news-api .
+```
+
+```bash
+  docker-compose up
+```
+
+## Documentation
+
+When you set `NODE_ENV` to `Development` in your environment variables, you gain access to the Swagger documentation.
+
+The Swagger documentation can be found at the following endpoint:
+
+`/api-docs`
 
 ### Issues
 
-If you encounter any problems, have questions, or wish to share feedback, please don't hesitate to create an issue in our repository. Your input is valuable, and we will respond promptly to assist you.
+Feel free to create an issue in our repository for any problems, questions, or feedback you have.
 
-### Contributions & Pull Requests
+### Contributing
 
-If you have improvements or new features to add, please follow these steps:
+We welcome contributions, new features, improvements, and feedback.
 
-1. Fork the repository.
-2. Create a new branch with a descriptive name for your changes.
-3. Make your modifications and commit them with clear and concise messages.
-4. Push your changes to your forked repository.
-5. Submit a pull request to our main repository, detailing the changes you've made.
-
-### License
-
-This Breaking News API project is licensed under the [MIT License](https://github.com/oteuzay/breaking-news-api/blob/main/LICENSE). Please review the license file for more details.
-
-Thank you for your interest and valuable contributions!
+Please fork the repository, make your changes, and submit a pull request for consideration.
