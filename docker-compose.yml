@@ -9,12 +9,12 @@ services:
     ports:
       - ${PORT}:8080
     environment:
-      - DB_URL=${DB_URL}
+      - DB_URL=${DB}
     depends_on:
       - mongo
   mongo:
     image: mongo
-    container_name: breaking-news-mongodb
+    container_name: breaking-news-db
     ports:
       - 27017:27017
     volumes:
