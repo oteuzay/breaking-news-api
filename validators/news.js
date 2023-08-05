@@ -8,7 +8,7 @@ const validateCommonFields = [
     .isLength({ min: 5 })
     .withMessage("Title must be at least 5 characters long.")
     .isString()
-    .withMessage("Description must be a string."),
+    .withMessage("Title must be a string."),
   body("description")
     .trim()
     .isLength({ min: 10 })
