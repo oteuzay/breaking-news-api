@@ -2,6 +2,20 @@
 
 The Breaking News API is a monolithic API that simplifies the process of delivering up-to-date and critical news to your users effortlessly.
 
+## Stack
+
+| Category         | Dependency                                                                                                    |
+|------------------|---------------------------------------------------------------------------------------------------------------|
+| Web Framework    | [Express Framework](https://expressjs.com/)                                                                  |
+| ODM              | [Mongoose](https://mongoosejs.com/)                                                                          |
+| Validator        | [Express Validator](https://express-validator.github.io/docs)                                                |
+| Authentication   | [JWT](https://www.npmjs.com/package/jsonwebtoken)                                                           |
+| Logging          | [Winston](https://github.com/winstonjs/winston)                                                             |
+| Documentation    | [Swagger](https://swagger.io/)                                                                              |
+| Security         | [Bcrypt.js](https://www.npmjs.com/package/bcryptjs) - [Helmet](https://helmetjs.github.io/)                 |
+| Others           | [Cors](https://www.npmjs.com/package/cors) - [Compression](https://www.npmjs.com/package/compression) - [Dotenv](https://github.com/motdotla/dotenv) - [Nodemon](https://github.com/remy/nodemon) |
+
+
 ## Installation
 
 You can get the project up and running by following the steps below.
