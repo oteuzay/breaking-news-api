@@ -8,7 +8,7 @@ class AuthorService {
   }
 
   async getAuthor(authorID) {
-    const author = await AuthorRepository.getAuthor(authorID);
+    const author = await AuthorRepository.getAuthorById(authorID);
 
     if (!author) {
       throw createError.NotFound("Author could not be found.");
