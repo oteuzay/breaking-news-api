@@ -1,4 +1,4 @@
-const News = require("../models/news");
+const News = require("../models/news.model");
 
 class NewsRepository {
   async createNews(news) {
