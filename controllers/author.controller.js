@@ -1,14 +1,8 @@
-const Author = require("../models/author");
-
-const { throwError } = require("../utils/errors");
+const authorService = require("../services/author.service");
 
 exports.getAuthors = async (req, res, next) => {
   try {
-    const authors = await Author.find();
-
-    if (!authors) {
-      throwError("AUTHOR_NOT_FOUND");
-    }
+    const authors = await authorService.getAuthors();
 
     res.status(200).json({
       authors: authors.map((author) => author.toJSONForSummaryOfAuthor()),
@@ -20,11 +14,9 @@ exports.getAuthors = async (req, res, next) => {
 
 exports.getAuthor = async (req, res, next) => {
   try {
-    const author = await Author.findById(req.params.id).populate("news");
+    const authorID = req.params.id;
 
-    if (!author) {
-      throwError("AUTHOR_NOT_FOUND");
-    }
+    const author = await authorService.getAuthor(authorID);
 
     res.status(200).json({
       author: author,
