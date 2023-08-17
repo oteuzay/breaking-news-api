@@ -16,9 +16,7 @@ const app = express();
 /*
  * Routes
  */
-const newsRoutes = require("./routes/news");
-const authRoutes = require("./routes/auth");
-const authorRoutes = require("./routes/author");
+const mainRoutes = require("./routes/main.route");
 
 app.use(
   cors({
@@ -35,10 +33,7 @@ if (config.NODE_ENV == "Development") {
   app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 }
 
-app.use("/auth", authRoutes);
-
-app.use("/news", newsRoutes);
-app.use("/authors", authorRoutes);
+app.use("/", mainRoutes);
 
 app.use(errors);
 
