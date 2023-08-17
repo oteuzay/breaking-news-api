@@ -1,40 +1,33 @@
 const express = require("express");
-const helmet = require("helmet");
+
 const cors = require("cors");
-
+const helmet = require("helmet");
 const compression = require("compression");
+const createError = require("http-errors");
 
-const errors = require("./middleware/error-handler");
+const apiConfig = require("./config/api.config");
 
-const swaggerUI = require("swagger-ui-express");
-const swaggerSpec = require("./config/swagger");
-
-const config = require("./config/config");
+const mainRoutes = require("./routes/main.route");
+const errorHandler = require("./middleware/error-handler.middleware");
 
 const app = express();
 
-/*
- * Routes
- */
-const mainRoutes = require("./routes/main.route");
-
 app.use(
   cors({
-    origin: config.ALLOWED_ORIGIN,
+    origin: apiConfig.ALLOWED_ORIGIN,
   })
 );
 
 app.use(helmet());
-
 app.use(express.json());
 app.use(compression());
 
-if (config.NODE_ENV == "Development") {
-  app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
-}
-
 app.use("/", mainRoutes);
 
-app.use(errors);
+app.use(async (req, res, next) => {
+  next(createError.NotFound());
+});
+
+app.use(errorHandler);
 
 module.exports = app;
