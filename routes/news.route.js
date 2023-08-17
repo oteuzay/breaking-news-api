@@ -5,10 +5,10 @@
  */
 const router = require("express").Router();
 
-const newsController = require("../controllers/news");
+const newsController = require("../controllers/news.controller");
 const isAuth = require("../middleware/is-auth");
-
-const newsValidator = require("../validators/news");
+const { verifyAccessToken } = require("../utils/auth.util");
+const newsValidator = require("../validators/news.validator");
 
 /**
  * @swagger
@@ -87,7 +87,12 @@ router.get("/:id", newsValidator.getNewsById, newsController.getNewsById);
  *       500:
  *         description: Internal Server Error
  */
-router.post("/", isAuth, newsValidator.createNews, newsController.createNews);
+router.post(
+  "/",
+  verifyAccessToken,
+  newsValidator.createNews,
+  newsController.createNews
+);
 
 /**
  * @swagger
@@ -133,7 +138,12 @@ router.post("/", isAuth, newsValidator.createNews, newsController.createNews);
  *       500:
  *         description: Internal Server Error
  */
-router.put("/:id", isAuth, newsValidator.updateNews, newsController.updateNews);
+router.put(
+  "/:id",
+  verifyAccessToken,
+  newsValidator.updateNews,
+  newsController.updateNews
+);
 
 /**
  * @swagger
@@ -163,7 +173,7 @@ router.put("/:id", isAuth, newsValidator.updateNews, newsController.updateNews);
  */
 router.delete(
   "/:id",
-  isAuth,
+  verifyAccessToken,
   newsValidator.deleteNews,
   newsController.deleteNews
 );
