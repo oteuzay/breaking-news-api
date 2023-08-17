@@ -2,12 +2,14 @@ const jsonwebtoken = require("jsonwebtoken");
 
 const createError = require("http-errors");
 
+const apiConfig = require("../config/api.config");
+
 exports.signAccessToken = async (authorID) => {
   const payloads = {
     authorID: authorID,
   };
 
-  const secret = "11";
+  const secret = apiConfig.SECRET;
 
   const options = {
     expiresIn: "1h",
@@ -30,7 +32,7 @@ exports.verifyAccessToken = async (req, res, next) => {
 
     const bearerToken = authHeader.split(" ");
     const token = bearerToken[1];
-    const secret = "11";
+    const secret = apiConfig.SECRET;
 
     const payloads = await jsonwebtoken.verify(token, secret);
 
