@@ -1,7 +1,7 @@
 const app = require("./app");
 const mongoose = require("mongoose");
 
-const config = require("./config/config");
+const config = require("./config/api.config");
 
 const logger = require("./utils/logger");
 
