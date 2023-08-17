@@ -6,9 +6,9 @@
 const router = require("express").Router();
 
 const newsController = require("../controllers/news.controller");
-const isAuth = require("../middleware/is-auth");
-const { verifyAccessToken } = require("../utils/auth.util");
 const newsValidator = require("../validators/news.validator");
+
+const { verifyAccessToken } = require("../utils/auth.util");
 
 /**
  * @swagger
@@ -75,9 +75,9 @@ router.get("/:id", newsValidator.getNewsById, newsController.getNewsById);
  *               tags:
  *                  type: Array
  *             example:
- *               title: Praesent at ipsum elit.
- *               description: Suspendisse dignissim mi ac odio viverra, et dignissim odio accumsan
- *               content: Cras quis ex congue, ultrices enim quis, porta justo. Quisque feugiat non nisl vel sagittis.
+ *               title: Title 1
+ *               description: Description 1
+ *               content: Content 1
  *               tags: ["Optional Tag 1", "Optional Tag 2"]
  *     responses:
  *       201:
@@ -124,10 +124,10 @@ router.post(
  *               tags:
  *                  type: Array
  *             example:
- *               title: Nullam mollis elit vitae mattis consectetur
- *               description: Donec tincidunt diam nec augue efficitur imperdiet.
- *               content: Aliquam bibendum eget lacus gravida lobortis. Cras non est turpis.
- *               tags: ["Optional Tag A", "Optional Tag B"]
+ *               title: Updated Title 1
+ *               description: Updated Description 1
+ *               content: Updated Content 1
+ *               tags: ["Updated Optional Tag C", "Updated Optional Tag D"]
  *     responses:
  *       200:
  *         description: Success
