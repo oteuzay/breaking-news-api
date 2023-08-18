@@ -4,7 +4,7 @@
     "description": "This API helps you to serve your breaking news in a simple way.",
     "scripts": {
         "start": "node server.js",
-        "dev": "nodemon server.js"
+        "start:dev": "nodemon server.js"
     },
     "engines": {
         "node": "18.16.0"
