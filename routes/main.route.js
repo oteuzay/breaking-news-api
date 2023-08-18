@@ -7,7 +7,7 @@ const authRoute = require("./auth.route");
 const authorRoute = require("./author.route");
 
 const swaggerUI = require("swagger-ui-express");
-const swaggerSpec = require("../config/swagger");
+const { swaggerSpec } = require("../utils/swagger.util");
 
 if (config.NODE_ENV === "Development") {
   router.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
