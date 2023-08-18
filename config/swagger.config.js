@@ -1,5 +1,7 @@
+const package = require("../package.json")
+
 module.exports = {
-  TITLE: "",
-  DESCRIPTION: "",
-  VERSION: "",
+  TITLE: "" || package.name,
+  DESCRIPTION: "" || package.description,
+  VERSION: "" || package.version,
 };
