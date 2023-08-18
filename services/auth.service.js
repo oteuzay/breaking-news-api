@@ -1,4 +1,3 @@
-const bcrypt = require("bcryptjs/dist/bcrypt");
 const authorRepository = require("../repositories/author.repository");
 
 const createError = require("http-errors");
@@ -13,7 +12,7 @@ class AuthService {
       throw createError.NotFound("Author could not be found.");
     }
 
-    const isEqual = await bcrypt.compare(password, existingAuthor.password);
+    const isEqual = await existingAuthor.isValidPassword(password);
 
     if (!isEqual) {
       throw createError.Unauthorized("Password or email is incorrect.");
