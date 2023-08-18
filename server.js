@@ -1,18 +1,18 @@
 const app = require("./app");
 const mongoose = require("mongoose");
 
-const config = require("./config/api.config");
+const apiConfig = require("./config/api.config");
 
-const logger = require("./utils/logger");
+const logger = require("./utils/logger.util");
 
 mongoose
-  .connect(config.DB, {
+  .connect(apiConfig.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(config.PORT, () => {
-      logger.info(`Server is running on port ${config.PORT}.`);
+    app.listen(apiConfig.PORT, () => {
+      logger.info(`Server is running on port ${apiConfig.PORT}.`);
     });
   })
   .catch((error) => {
