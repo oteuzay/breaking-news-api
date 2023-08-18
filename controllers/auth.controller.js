@@ -1,6 +1,6 @@
 const authService = require("../services/auth.service");
 
-exports.signin = async (req, res, next) => {
+exports.signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -14,7 +14,7 @@ exports.signin = async (req, res, next) => {
   }
 };
 
-exports.signup = async (req, res, next) => {
+exports.signUp = async (req, res, next) => {
   try {
     const author = {
       name: req.body.name,
