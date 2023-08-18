@@ -1,17 +1,12 @@
 const router = require("express").Router();
 
-const config = require("../config/api.config");
-
 const newsRoute = require("./news.route");
 const authRoute = require("./auth.route");
 const authorRoute = require("./author.route");
 
-const swaggerUI = require("swagger-ui-express");
-const { swaggerSpec } = require("../utils/swagger.util");
+const swaggerRoute = require("./swagger.route");
 
-if (config.NODE_ENV === "Development") {
-  router.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
-}
+router.use("/api-docs", swaggerRoute);
 
 router.use("/news", newsRoute);
 router.use("/auth", authRoute);
