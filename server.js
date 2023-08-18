@@ -2,11 +2,12 @@ const app = require("./app");
 const mongoose = require("mongoose");
 
 const apiConfig = require("./config/api.config");
+const databaseConfig = require("./config/database.config")
 
 const logger = require("./utils/logger.util");
 
 mongoose
-  .connect(apiConfig.DB, {
+  .connect(databaseConfig.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
