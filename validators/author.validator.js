@@ -1,6 +1,6 @@
 const { check } = require("express-validator");
 
-const validationCheck = require("../middleware/validation-check");
+const validationCheck = require("../middleware/validation-check.middleware");
 
 exports.getAuthor = [
   check("id")

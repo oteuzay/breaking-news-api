@@ -5,9 +5,8 @@
  */
 const router = require("express").Router();
 
-const authorController = require("../controllers/author");
-
-const authorValidator = require("../validators/author");
+const authorController = require("../controllers/author.controller");
+const authorValidator = require("../validators/author.validator");
 
 /**
  * @swagger

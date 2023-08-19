@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const convertDateFormat = require("../helpers/convert-date-format");
+const dateFormat = require("../helpers/date-format.helper.js");
+const bcrypt = require("bcryptjs/dist/bcrypt");
 
 const authorSchema = new mongoose.Schema(
   {
@@ -54,11 +55,32 @@ authorSchema.methods.toJSON = function () {
       return {
         id: news._id,
         title: news.title,
-        createdAt: convertDateFormat(news.createdAt),
+        createdAt: dateFormat(news.createdAt),
       };
     }),
-    createdAt: convertDateFormat(this.createdAt),
+    createdAt: dateFormat(this.createdAt),
   };
+};
+
+authorSchema.pre("save", async function (next) {
+  try {
+    if (this.isNew) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(this.password, salt);
+      this.password = hashedPassword;
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+authorSchema.methods.isValidPassword = async function (password) {
+  try {
+    return await bcrypt.compare(password, this.password);
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = mongoose.model("Author", authorSchema);

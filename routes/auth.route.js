@@ -5,8 +5,8 @@
  */
 const express = require("express");
 
-const authController = require("../controllers/auth");
-const authValidator = require("../validators/auth");
+const authController = require("../controllers/auth.controller");
+const authValidator = require("../validators/auth.validator");
 
 const router = express.Router();
 
@@ -43,7 +43,7 @@ const router = express.Router();
  *       500:
  *         description: Internal Server Error
  */
-router.post("/signin", authValidator.signin, authController.signin);
+router.post("/signin", authValidator.signIn, authController.signIn);
 
 /**
  * @swagger
@@ -82,6 +82,6 @@ router.post("/signin", authValidator.signin, authController.signin);
  *       500:
  *         description: Internal Server Error
  */
-router.post("/signup", authValidator.signup, authController.signup);
+router.post("/signup", authValidator.signUp, authController.signUp);
 
 module.exports = router;

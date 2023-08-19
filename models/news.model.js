@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const convertDateFormat = require("../helpers/convert-date-format");
+const dateFormat = require("../helpers/date-format.helper.js");
 
 const newsSchema = new mongoose.Schema(
   {
@@ -39,8 +39,8 @@ newsSchema.methods.toJSON = function () {
     description: this.description,
     content: this.content,
     tags: this.tags,
-    createdAt: convertDateFormat(this.createdAt),
-    updatedAt: convertDateFormat(this.updatedAt),
+    createdAt: dateFormat(this.createdAt),
+    updatedAt: dateFormat(this.updatedAt),
     author: {
       id: this.authorID._id,
       name: this.authorID.name,
@@ -54,7 +54,7 @@ newsSchema.methods.toJSONForSummaryOfNews = function () {
     id: this._id,
     title: this.title,
     description: this.description,
-    createdAt: convertDateFormat(this.createdAt),
+    createdAt: dateFormat(this.createdAt),
     author: {
       id: this.authorID._id,
       name: this.authorID.name,

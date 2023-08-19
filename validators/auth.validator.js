@@ -1,8 +1,8 @@
 const { body } = require("express-validator");
 
-const validationCheck = require("../middleware/validation-check");
+const validationCheck = require("../middleware/validation-check.middleware");
 
-exports.signup = [
+exports.signUp = [
   body("name").trim().notEmpty().withMessage("Name field should not be empty."),
   body("surname")
     .trim()
@@ -21,7 +21,7 @@ exports.signup = [
   validationCheck,
 ];
 
-exports.signin = [
+exports.signIn = [
   body("email")
     .trim()
     .notEmpty()
