@@ -32,9 +32,9 @@ class AuthService {
       throw createError.UnprocessableEntity("E-Mail address already exists!");
     }
 
-    const createAuthor = await authorRepository.createAuthor(author);
+    const createdAuthor = await authorRepository.createAuthor(author);
 
-    return createAuthor;
+    return createdAuthor;
   }
 }
 
